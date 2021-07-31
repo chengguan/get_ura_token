@@ -9,7 +9,7 @@ import requests
 accesskey = "<paste your access key here>"
 
 url = 'https://www.ura.gov.sg/uraDataService/insertNewToken.action'
-myobj = {'AccessKey': accesskey}
+myobj = {'AccessKey': accesskey, 'User-Agent': 'Mozilla/5.0'}
 
 # Place the access key in the request header and send.
 resp = requests.post(url, headers=myobj)
@@ -19,6 +19,6 @@ if (resp.status_code==200):
         result = resp.json()['Result']
         print(f"Token: '{result}'.")
     except:
-        print(resp.text) # print error msg (should the resp data structure changed...)
+        print(f'{resp.status_code=}: {resp.text}') # print error msg (should the resp data structure changed...)
 else:
-    print(resp.text) # print error msg
+    print(f'{resp.status_code=}: {resp.text}') # print error msg
